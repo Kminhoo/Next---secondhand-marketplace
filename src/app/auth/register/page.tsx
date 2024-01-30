@@ -5,14 +5,18 @@ import Input from '@/components/Input'
 import Button from '@/components/Button'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import Link from 'next/link'
-import { signIn } from 'next-auth/react'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
 
-const LoginPage = () => {
+const RegisterPage = () => {
+
+  const router = useRouter()
 
   const [isLoading, setIsLoading] = useState(false)
 
   const { register, handleSubmit, formState: { errors }} = useForm<FieldValues>({
     defaultValues: {
+      name: '',
       email: '',
       password: ''
     }
@@ -22,8 +26,9 @@ const LoginPage = () => {
     setIsLoading(true)
 
     try {
-      const data = await signIn('credentials', body)
+      const { data } = await axios.post('/api/register')
       console.log(data)
+      router.push('/auth/login')
     } catch (error) {
       console.log(error)
     } finally {
@@ -39,12 +44,21 @@ const LoginPage = () => {
       >
 
         <h1 className='text-2xl'>
-          Login
+          Register
         </h1>
 
         <Input
           id='email'
           label='email'
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+
+        <Input
+          id='name'
+          label='name'
           disabled={isLoading}
           register={register}
           errors={errors}
@@ -62,17 +76,17 @@ const LoginPage = () => {
         />
 
         <Button 
-          label='로그인하기'
+          label='submit'
         />
 
         <div className='text-center'>
           <p className='text-gray-400'>
-            Not a member?{" "}
+            Already a member?{" "}
             <Link 
-              href='/auth/register' 
+              href='/auth/login' 
               className='text-black hover:underline'
             >
-              Move to Register
+              Move to Login
             </Link>
           </p>
         </div>
@@ -82,4 +96,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage
+export default RegisterPage
