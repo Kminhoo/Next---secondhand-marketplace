@@ -2,10 +2,11 @@ import NextAuth, { NextAuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import { PrismaClient } from "@prisma/client"
+// import { PrismaClient } from "@prisma/client"
 import { signOut } from "next-auth/react"
+import prisma from '@/libs/prismadb'
 
-const prisma = new PrismaClient()
+// const prisma = new PrismaClient()
 
 export const authOption: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
