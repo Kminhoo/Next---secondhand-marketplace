@@ -1,12 +1,17 @@
 'use client'
 
+import { User } from "@prisma/client"
 import Link from "next/link"
 
 import { useState } from "react"
 
 import NavItem from "./NavItem"
 
-const Navbar = () => {
+interface NavbarProps {
+  currentUser?: User | null
+}
+
+const Navbar = ({ currentUser }: NavbarProps) => {
 
   const [menu, setMenu] = useState(false)
 
@@ -27,13 +32,13 @@ const Navbar = () => {
         </div>
 
         <div className="hidden sm:block">
-          <NavItem />
+          <NavItem currentUser={currentUser} />
         </div>
 
       </div>
 
       <div className="blcok sm:hidden">
-        {menu === true && <NavItem mobile/>}
+        {menu === true && <NavItem mobile currentUser={currentUser}/>}
       </div>
     </nav>
   )

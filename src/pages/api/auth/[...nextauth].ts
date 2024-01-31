@@ -9,7 +9,7 @@ import prisma from '@/libs/prismadb'
 
 // const prisma = new PrismaClient()
 
-export const authOption: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
 
@@ -88,4 +88,4 @@ export const authOption: NextAuthOptions = {
   }
 }
 
-export default NextAuth(authOption)
+export default NextAuth(authOptions)
