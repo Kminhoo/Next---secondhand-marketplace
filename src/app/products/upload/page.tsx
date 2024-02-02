@@ -6,6 +6,9 @@ import Container from "@/components/Container"
 import Heading from "@/components/Heading"
 import { useState } from "react"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
+import ImageUpload from "@/components/ImageUpload"
+import { categories } from "@/components/categories/Categories"
+import CategoryInput from "@/components/categories/CategoryInput"
 
 const ProductUploadPage = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -31,8 +34,16 @@ const ProductUploadPage = () => {
     }
   })
 
+  const imageSrc = watch('imageSrc')
+  const category = watch('category')
+  
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
 
+  }
+
+  const setCustomValue = (id: string, value: any) => {
+    setValue(id, value)
   }
 
   return (
@@ -41,6 +52,11 @@ const ProductUploadPage = () => {
         <form onChange={handleSubmit(onSubmit)} className="flex flex-col gap-8">
 
           <Heading title="Product Upload" subtitle="upload your product"/>
+
+          <ImageUpload 
+            value={imageSrc}
+            onChange={value => setCustomValue('imageSrc', value)}
+          />
 
           <Input 
             id="title"
@@ -81,7 +97,17 @@ const ProductUploadPage = () => {
 
           {/* category 부분 */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
-            {/* 카테고리 컴포넌트 부분 */}
+            {categories.map((item) => (
+              <div key={item.label}>
+                <CategoryInput 
+                  onClick={category => setCustomValue('category', category)}
+                  selected={category === item.path}
+                  label={item.label}
+                  icon={item.icon}
+                  path={item.path}
+                />
+              </div>
+            ))}
           </div>
 
           <hr />
