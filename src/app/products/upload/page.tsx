@@ -9,8 +9,14 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import ImageUpload from "@/components/ImageUpload"
 import { categories } from "@/components/categories/Categories"
 import CategoryInput from "@/components/categories/CategoryInput"
+import KakaoMap from "@/components/KakaoMap"
+import dynamic from "next/dynamic"
+import axios from "axios"
+import { useRouter } from "next/navigation"
 
 const ProductUploadPage = () => {
+  const router = useRouter()
+
   const [isLoading, setIsLoading] = useState(false)
 
   const {
@@ -27,7 +33,7 @@ const ProductUploadPage = () => {
       title: '',
       description: '',
       category: '',
-      letitude: 33.5563,
+      latitude: 33.5563,
       longitude: 126.79581,
       imageSrc: '',
       price: 1000
@@ -36,10 +42,25 @@ const ProductUploadPage = () => {
 
   const imageSrc = watch('imageSrc')
   const category = watch('category')
+  const longitude = watch('longitude')
+  const latitude = watch('latitude')
+
+
+  // dynamic import
+  const KakaoMap = dynamic(() => import('../../../components/KakaoMap'), {
+    ssr: false
+  })
   
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    setIsLoading(true)
 
+    axios.post('/api/products', data)
+      .then(response => router.push(`/products/${response.data.id}`))
+      .catch(err => console.error(err))
+      .finally(() => {
+        setIsLoading(true)
+      })
   }
 
   const setCustomValue = (id: string, value: any) => {
@@ -49,7 +70,7 @@ const ProductUploadPage = () => {
   return (
     <Container>
       <div className="max-w-screen-lg mx-auto">
-        <form onChange={handleSubmit(onSubmit)} className="flex flex-col gap-8">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
 
           <Heading title="Product Upload" subtitle="upload your product"/>
 
@@ -113,6 +134,7 @@ const ProductUploadPage = () => {
           <hr />
 
           {/* kakaoMap 부분 */}
+          <KakaoMap setCustomValue={setCustomValue} longitude={longitude} latitude={latitude}/>
 
           <Button label="상품 등록하기" />
 
