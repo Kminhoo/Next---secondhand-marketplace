@@ -5,6 +5,7 @@ import { Product, User } from 'prisma/prisma-client'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import HeartButton from './HeartButton'
+import { changeTime } from '@/libs/dayjs'
 
 interface ProductCardProps {
   currentUser?: User | null ,
@@ -46,10 +47,13 @@ const ProductCard = ({ currentUser, data }: ProductCardProps) => {
           {data.category}
         </div>
 
-        <div>
+        <div className='flex flex-row items-center justify-between gap-1'>
           <div>
             {data.price}{""}
             <span className='font-light'>원</span>
+          </div>
+          <div>
+            {changeTime(data.createAt)}
           </div>
         </div>
       </div>
