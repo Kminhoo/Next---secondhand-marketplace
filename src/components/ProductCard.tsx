@@ -21,13 +21,15 @@ const ProductCard = ({ currentUser, data }: ProductCardProps) => {
     >
       <div className='flex flex-col w-full gap-2'>
         <div className='relative w-full overflow-hidden aspect-square rounded-xl'>
-          <Image 
-            fill
-            sizes='auto'
-            src={data.imageSrc}
-            alt="Listing"
-            className='object-cover w-full h-full transition group-hover:scale-110'
-          />
+          {data.imageSrc && (
+            <Image 
+              fill
+              sizes='auto'
+              src={data.imageSrc}
+              alt="Listing"
+              className='object-cover w-full h-full transition group-hover:scale-110'
+            />
+          )}
           <div className='absolute top-3 right-3'>
             <HeartButton 
               productId={data.id}
