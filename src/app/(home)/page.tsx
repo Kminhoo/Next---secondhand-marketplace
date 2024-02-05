@@ -5,6 +5,7 @@ import gerProduct, { ProductParams } from "../actions/getProducts";
 import ProductCard from "@/components/ProductCard";
 import getCurrentUser from '../actions/getCurrentUser'
 import FloatingButton from "@/components/categories/FloatingButton";
+import Categories from "@/components/categories/Categories";
 
 interface HomeProps {
   searchParams: ProductParams
@@ -20,11 +21,11 @@ export default async function Home({ searchParams }: HomeProps) {
   return (
     <Container>
 
-      {/* Category */}
+      <Categories />
 
       {
         products?.data.length === 0 
-        ? <EmptyState /> 
+        ? <EmptyState showReset/> 
         : 
         <>
           <div 

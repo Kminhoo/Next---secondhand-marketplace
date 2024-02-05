@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 
 import { FaTachographDigital } from 'react-icons/fa6'
@@ -8,6 +9,8 @@ import { FaShirt } from 'react-icons/fa6'
 import { FaHeartbeat } from 'react-icons/fa'
 import { MdOutlineSportsHandball } from 'react-icons/md'
 import { FaCar } from 'react-icons/fa'
+import { useSearchParams } from 'next/navigation';
+import CategoryBox from './CategoryBox';
 
 
 export const categories = [
@@ -62,8 +65,21 @@ export const categories = [
 ]
 
 const Categories = () => {
+  const params = useSearchParams();
+  const category = params?.get('category')
+
   return (
-    <div>Categories</div>
+    <div className='flex flex-row items-center justify-between pt-4 overflow-x-auto'>
+      {categories.map((item) => (
+        <CategoryBox 
+          key={item.label}
+          label={item.label}
+          icon={item.icon}
+          path={item.path}
+          selected={category === item.path}
+        />
+      ))}
+    </div>
   )
 }
 

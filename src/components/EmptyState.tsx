@@ -22,7 +22,7 @@ const EmptyState = ({
   const router = useRouter();
 
   return (
-    <div className='h-[60vh] flex flex-col gap-2 justify-content items-center'>
+    <div className='h-[60vh] flex flex-col gap-2 justify-center items-center'>
       <Heading
         title={title}
         subtitle={subtitle}
