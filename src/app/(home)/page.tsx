@@ -6,6 +6,8 @@ import ProductCard from "@/components/ProductCard";
 import getCurrentUser from '../actions/getCurrentUser'
 import FloatingButton from "@/components/categories/FloatingButton";
 import Categories from "@/components/categories/Categories";
+import Pagination from "@/components/Pagination";
+import { PRODUCT_PER_PAGE } from "@/constant";
 
 interface HomeProps {
   searchParams: ProductParams
@@ -15,6 +17,10 @@ export default async function Home({ searchParams }: HomeProps) {
   const products = await gerProduct(searchParams);
 
   const currentUser = await getCurrentUser()
+
+  const page = searchParams?.page
+  const pageNum = typeof page === 'string' ? Number(page) : 1
+  console.log(pageNum)
 
   // console.log('product: ', products)
   // console.log('searchParams : ', searchParams)
@@ -42,6 +48,9 @@ export default async function Home({ searchParams }: HomeProps) {
           </div>
         </>
       }
+
+      <Pagination page={pageNum} totalItems={products.totalItems} perPage={PRODUCT_PER_PAGE}/>
+
       <FloatingButton href="/product/upload">
         +
       </FloatingButton>
