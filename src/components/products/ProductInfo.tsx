@@ -7,12 +7,12 @@ import ProductCategory from './ProductCategory'
 
 interface ProductInfoProps {
   user: User 
-  category?: {
+  category: {
     icon: IconType
     label: string
     path: string
     description: string
-  }
+  } | undefined
   createAt: Date
   description: string
 }

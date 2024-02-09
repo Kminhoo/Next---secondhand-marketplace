@@ -51,7 +51,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
       <Pagination page={pageNum} totalItems={products.totalItems} perPage={PRODUCT_PER_PAGE}/>
 
-      <FloatingButton href="/product/upload">
+      <FloatingButton href="/products/upload">
         +
       </FloatingButton>
 

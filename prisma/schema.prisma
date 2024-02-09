@@ -57,6 +57,10 @@ model User {
   userType     UserType @default(User)
   favoriteIds  String[]
   Product      Product[]
+
+  conversations Conversation[]
+  sendMessage Message[] @relation("sender")
+  receivedMessage Message[] @relation("receiver")
 }
 
 model Product {
@@ -81,4 +85,28 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Message {
+  id String @id @default(cuid())
+  createAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  text String?
+  image String?
+  sender User @relation(name: "sender", fields: [senderId], references: [id])
+  senderId String
+  receiver User @relation(name: "receiver", fields: [receiverId], references: [id])
+  receiverId String
+  conversation Conversation @relation(fields: [conversationId], references: [id])
+  conversationId String
+}
+
+model Conversation {
+  id String @id @default(cuid())
+  name String?
+  senderId String
+  receiverId String
+  users User[]
+  messages Message[]
+  createAt DateTime @default(now())
 }
