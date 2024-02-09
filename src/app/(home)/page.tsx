@@ -2,7 +2,7 @@ import Image from "next/image";
 import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState"
 import gerProduct, { ProductParams } from "../actions/getProducts";
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/components/products/ProductCard";
 import getCurrentUser from '../actions/getCurrentUser'
 import FloatingButton from "@/components/categories/FloatingButton";
 import Categories from "@/components/categories/Categories";
@@ -20,7 +20,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
   const page = searchParams?.page
   const pageNum = typeof page === 'string' ? Number(page) : 1
-  console.log(pageNum)
+  // console.log(pageNum)
 
   // console.log('product: ', products)
   // console.log('searchParams : ', searchParams)

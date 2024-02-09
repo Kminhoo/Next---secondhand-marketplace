@@ -17,7 +17,7 @@ const KakaoMap = ({
 }: KakaoMapProps ) => {
 
   const handleClick = (mouseEvent: kakao.maps.event.MouseEvent) => {
-    console.log(mouseEvent)
+    // console.log(mouseEvent)
     if(detailPage) null;
     setCustomValue('latitudu', mouseEvent.latLng.getLat())
     setCustomValue('longitude', mouseEvent.latLng.getLng())
