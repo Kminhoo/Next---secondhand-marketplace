@@ -4,7 +4,7 @@ import { Map, MapMarker } from 'react-kakao-maps-sdk'
 interface KakaoMapProps {
   longitude: number
   latitude: number
-  setCustomValue: (id: string, value: number) => void
+  setCustomValue?: (id: string, value: number) => void
   // 분기처리를 위한 props
   detailPage?: boolean
 }
@@ -19,6 +19,7 @@ const KakaoMap = ({
   const handleClick = (mouseEvent: kakao.maps.event.MouseEvent) => {
     // console.log(mouseEvent)
     if(detailPage) null;
+    if(!setCustomValue) return;
     setCustomValue('latitudu', mouseEvent.latLng.getLat())
     setCustomValue('longitude', mouseEvent.latLng.getLng())
   }

@@ -8,10 +8,11 @@ import { Product, User } from '@prisma/client'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
 import React from 'react'
+import { categories } from '../../../components/categories/Categories'
 
 interface ProductClientProps {
   currentUser?: User | null
-  productData: Product & { user?: User }
+  productData: Product & { user: User }
 }
 
 const ProductClient = ({ currentUser, productData }: ProductClientProps) => {
@@ -21,6 +22,9 @@ const ProductClient = ({ currentUser, productData }: ProductClientProps) => {
     ssr: false
   })
 
+  const category = categories.find(item => item.path === productData.category)
+
+  console.log(productData)
   return (
     <Container>
       <div className='max-w-screen-lg mx-auto'>
@@ -32,7 +36,12 @@ const ProductClient = ({ currentUser, productData }: ProductClientProps) => {
             currentUser={currentUser}
           />
           <div className='grid grid-cols-1 mt-6 md:grid-cols-2 md:gap-10'>
-            <ProductInfo />
+            <ProductInfo 
+              user={productData?.user}
+              category={category}
+              createAt={productData.createAt}
+              description={productData.description}
+            />
             <div>
               <KakaoMap 
                 detailPage 

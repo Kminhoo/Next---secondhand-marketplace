@@ -1,7 +1,6 @@
 import getCurrentUser from '@/app/actions/getCurrentUser';
 import getProductById from '@/app/actions/getProductById';
 import EmptyState from '@/components/EmptyState';
-import { useParams } from 'next/navigation'
 import React from 'react'
 import ProductClient from './productClient';
 

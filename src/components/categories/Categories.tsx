@@ -12,7 +12,6 @@ import { FaCar } from 'react-icons/fa'
 import { useSearchParams } from 'next/navigation';
 import CategoryBox from './CategoryBox';
 
-
 export const categories = [
   {
     label: '디지털기기',
