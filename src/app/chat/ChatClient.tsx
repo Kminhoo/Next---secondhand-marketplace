@@ -1,5 +1,7 @@
 'use client'
 
+import Chat from '@/components/chat/Chat'
+import Contacts from '@/components/chat/Contacts'
 import { TUserWithChat } from '@/types'
 import { User, UserType } from '@prisma/client'
 import axios from 'axios'
@@ -32,9 +34,9 @@ const ChatClient = ({ currentUser }: ChatClientProps ) => {
 
   // 현재 로그인된 유저email과 데이터베이스에서 가져온 user목록에 email이 같은것을 찾아 저장
   // 즉 자기 자신의 데이터를 찾아 저장
-  const currentUserWithMessage = users.find((user: TUserWithChat)=> user.email === currentUser?.email)
+  const currentUserWithMessage = users?.find((user: TUserWithChat)=> user.email === currentUser?.email)
 
-  // console.log(currentUserWithMessage)
+  console.log(`users: `, users)
 
   // 서버에 데이터를 요청해서 json으로 가져오기
   // useEffect를 통해 특정상태나, 렌더링될때 한번 데이터를 가져오는 방법
@@ -52,12 +54,21 @@ const ChatClient = ({ currentUser }: ChatClientProps ) => {
       <div className='grid grid-cols-[1fr] md:grid-cols-[300px_1fr]'>
         {/* 목록 섹션 */}
         <section className={`md:flex ${layout && 'hidden'}`}>
-          contact Component
+          <Contacts 
+            users={users}
+            currentUser={currentUserWithMessage}
+            setLayout={setLayout}
+            setReceiver={setReceiver}
+          />
         </section>
 
         {/* 채팅 섹션 */}
         <section className={`md:flex ${!layout && 'hidden'}`}>
-          chat Component
+          <Chat 
+            currentUser={currentUserWithMessage}
+            receiver={receiver}
+            setLayout={setLayout}
+          />
         </section>
       </div>
     </main>
