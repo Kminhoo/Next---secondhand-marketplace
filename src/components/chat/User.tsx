@@ -12,9 +12,9 @@ interface UserProps {
 const User = ({ user, currentUserId }: UserProps ) => {
 
   // 즉 자신과 대화를 한 유저의 데이터만 가져온다
-  const messageWithCurrentUser = user.conversations.find((conversation) => {
+  const messageWithCurrentUser = user.conversations.find((conversation) => 
     conversation.users.find((user) => user.id === currentUserId)
-  })
+  )
 
   // 가장 마지막 메세지를 가져온다
   const latestMessage = messageWithCurrentUser?.messages.slice(-1)[0]
@@ -32,8 +32,8 @@ const User = ({ user, currentUserId }: UserProps ) => {
         <p></p>
       </div>
 
-      <div>
-        {latestMessage && <p>{changeTime(latestMessage.createAt)}</p>}
+      <div className='flex justify-end text-xs text-gray-500'>
+        {latestMessage && (<p>{changeTime(latestMessage.createAt)}</p>)}
       </div>
     </div>
   )
