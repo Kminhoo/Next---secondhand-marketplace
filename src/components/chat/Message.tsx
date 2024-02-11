@@ -1,4 +1,5 @@
 import { changeTime } from '@/libs/dayjs'
+import Image from 'next/image'
 import React from 'react'
 import Avatar from '../Avatar'
 
@@ -37,6 +38,13 @@ const Message = ({
           <span className='font-medium'>{isSender ? "You" : receiverName}</span>
           <span className='text-xs text-gray-500 opacity-80'>{changeTime(time)}</span>
         </div>
+        
+        {messageImage && (
+          <div className='overflo-hidden rounded-md mx-[0.6rem] max-w-[80%]'>
+            <Image src={messageImage} alt="messge Image" width={300} height={300}/>
+          </div>
+        )}
+
         {messageText && (
           <div className={`
             p-2 break-all text-white rounded-lg
